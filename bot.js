@@ -1,14 +1,23 @@
 console.log('Beep beep!');
 
-const Discord = require('discord.js');
-const client = new Discord.Client();
-// Hardcoding bot token here just to test it. Regenerating it later
-// client.login('BOT TOKEN')
+const { Client, Intents } = require('discord.js');
+const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
-client.login('OTU1OTEyMTM4NzEzNjEyMzE4.YjokjQ.pVuN9ckbXMxD8QWQV-l_O-RFICU');
-
+// Bot online
 client.on('ready', readyDiscord);
 
 function readyDiscord() {
   console.log('Bot is online');
 }
+
+
+// Message
+client.on('message', gotMessage);
+
+function gotMessage(msg) {
+  console.log(msg);
+}
+
+
+// Hardcoding bot token here just to test it. Regenerating it later
+// client.login('BOT TOKEN')
