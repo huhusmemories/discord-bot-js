@@ -1,23 +1,29 @@
-console.log('Beep beep!');
+// console.log('Beep beep!');
 
-const { Client, Intents } = require('discord.js');
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+// Import required files
+import DiscordJS, { Intents } from 'discord.js'
+import dotenv from 'dotenv'
+dotenv.config()
+
+const client = new DiscordJS.Client({
+  intents: [
+    Intents.FLAGS.GUILDS,
+    Intents.FLAGS.GUILD_MESSAGES
+  ]
+})
 
 // Bot online
-client.on('ready', readyDiscord);
-
-function readyDiscord() {
-  console.log('Bot is online');
-}
-
+client.on('ready', () => {
+  console.log('Bot is online')
+});
 
 // Message
-client.on('message', gotMessage);
+client.on('messageCreate', (message) => {
+  if (message.content === 'ping') {
+    message.reply({
+      content: 'pong',
+    })
+  }
+})
 
-function gotMessage(msg) {
-  console.log(msg);
-}
-
-
-// Hardcoding bot token here just to test it. Regenerating it later
-// client.login('BOT TOKEN')
+client.login(process.env.TOKEN)
