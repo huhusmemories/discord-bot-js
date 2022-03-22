@@ -17,6 +17,7 @@ client.on('ready', () => {
   console.log('Bot is online')
 });
 
+
 // Message
 client.on('messageCreate', (message) => {
   if (message.content === 'ping') {
