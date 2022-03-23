@@ -27,4 +27,13 @@ client.on('messageCreate', (message) => {
   }
 })
 
+client.on('messageCreate', (message) => {
+  if (message.content === 'shoot') {
+    message.delete()
+    message.reply({
+      content: 'this message was deleted'
+    })
+  }
+})
+
 client.login(process.env.TOKEN)
