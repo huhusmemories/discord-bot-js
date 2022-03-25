@@ -69,9 +69,14 @@ client.on('interactionCreate', async (interaction) => {
     const num1 = options.getNumber('num1') || 0
     const num2 = options.getNumber('num2') || 0
 
-    interaction.reply({
+    await interaction.deferReply({
+      ephemeral: true
+    })
+
+    await new Promise(resolve => setTimeout(resolve, 5000))
+
+    await interaction.editReply({
       content: `The sum is ${num1 + num2}`,
-      ephemeral: true,
     })
 
   }
