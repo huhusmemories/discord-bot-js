@@ -2,6 +2,7 @@
 
 // Import required files
 import DiscordJS, { Intents } from 'discord.js'
+// import { InteractionResponseTypes } from 'discord.js/typings/enums';
 import dotenv from 'dotenv'
 dotenv.config()
 
@@ -30,6 +31,25 @@ client.on('ready', () => {
     name: 'ping',
     description: 'Replies with pong',
   })
+
+  commands?.create({
+    name: 'add',
+    description: 'Adds two numbers',
+    options: [
+      {
+        name: 'num1',
+        description: 'The first number',
+        required: true,
+        type: DiscordJS.Constants.ApplicationCommandOptionTypes.NUMBER
+      },
+      {
+        name: 'num2',
+        description: 'The second number',
+        required: true,
+        type: DiscordJS.Constants.ApplicationCommandOptionTypes.NUMBER
+      }
+    ]
+  })
 });
 
 client.on('interactionCreate', async (interaction) => {
@@ -45,6 +65,15 @@ client.on('interactionCreate', async (interaction) => {
       //  Only the sender can see this message
        ephemeral: true,
      })
+  } else if (commandName === 'add') {
+    const num1 = options.getNumber('num1') || 0
+    const num2 = options.getNumber('num2') || 0
+
+    interaction.reply({
+      content: `The sum is ${num1 + num2}`,
+      ephemeral: true,
+    })
+
   }
 })
 
