@@ -2,6 +2,8 @@
 
 // Import required files
 import DiscordJS, { Intents } from 'discord.js'
+import WOKCommands from 'wokcommands'
+import path from 'path'
 // import { InteractionResponseTypes } from 'discord.js/typings/enums';
 import dotenv from 'dotenv'
 dotenv.config()
@@ -16,6 +18,12 @@ const client = new DiscordJS.Client({
 // Bot online
 client.on('ready', () => {
   console.log('Bot is online')
+  const __dirname = path.resolve()
+
+  new WOKCommands(client, {
+    commandsDir: path.join(__dirname, 'commands'),
+    typeScript: false
+  })
 
   const guildId = "820804738114912267"
   const guild = client.guilds.cache.get(guildId)
